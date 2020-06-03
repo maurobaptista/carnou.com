@@ -1,64 +1,23 @@
 import React from "react"
 import { Link } from "gatsby"
 
-import { rhythm, scale } from "../utils/typography"
-
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
-  let header
+  let headerFontSize
 
-  if (location.pathname === rootPath) {
-    header = (
-      <h1
-        style={{
-          ...scale(1.5),
-          marginBottom: rhythm(1.5),
-          marginTop: 0,
-        }}
-      >
-        <Link
-          style={{
-            boxShadow: `none`,
-            color: `inherit`,
-          }}
-          to={`/`}
-        >
+  headerFontSize = (location.pathname === rootPath)
+    ? 'text-4xl'
+    : 'text-2xl';
+
+  return (
+    <div className={'max-w-6xl my-4 mx-4 lg:mx-auto ' + headerFontSize}>
+      <h1 className='text-4xl font-bold mb-6 text-blue-700 hover:text-blue-600'>
+        <Link to={`/`}>
           {title}
         </Link>
       </h1>
-    )
-  } else {
-    header = (
-      <h3
-        style={{
-          fontFamily: `Montserrat, sans-serif`,
-          marginTop: 0,
-        }}
-      >
-        <Link
-          style={{
-            boxShadow: `none`,
-            color: `inherit`,
-          }}
-          to={`/`}
-        >
-          {title}
-        </Link>
-      </h3>
-    )
-  }
-  return (
-    <div
-      style={{
-        marginLeft: `auto`,
-        marginRight: `auto`,
-        maxWidth: rhythm(24),
-        padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-      }}
-    >
-      <header>{header}</header>
-      <main>{children}</main>
-      <footer>
+      <main className='bg-white rounded shadow-md p-6'>{children}</main>
+      <footer className='w-full text-center border-t text-sm text-gray-600 border-grey p-4 mt-4 pin-b'>
         © {new Date().getFullYear()}, Built with
         {` `}
         <a href="https://www.gatsbyjs.org">Gatsby</a>
