@@ -29,16 +29,16 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         <hr />
         <Bio />
       </article>
-      <nav className="text-sm hover:font-bold">
-        <ul>
-          <li>
+      <nav className="text-sm hover:font-bold mb-10">
+        <ul className="relative">
+          <li className="inline-block absolute left-0">
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
-          <li>
+          <li className="inline-block absolute right-0">
             {next && (
               <Link to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
