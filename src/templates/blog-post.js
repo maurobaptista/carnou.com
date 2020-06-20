@@ -1,9 +1,9 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Tag from "../components/tag";
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
@@ -17,7 +17,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         description={post.frontmatter.description || post.excerpt}
       />
       <article className='mb-6 border-b pb-4'>
-        <header className="mb-4">
+        <header>
           <h1 className="text-gray-900 font-bold text-2xl text-blue-900">
             {post.frontmatter.title}
           </h1>
@@ -25,7 +25,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             {post.frontmatter.date}
           </p>
         </header>
-        <section className="text-base mb-6 post" dangerouslySetInnerHTML={{ __html: post.html }} />
+        <div className="inline">
+          {post.frontmatter.tags.map(tag => {
+            return (
+              <Tag tag={tag} />
+            )
+          })}
+        </div>
+        <section className="text-base my-6 post" dangerouslySetInnerHTML={{ __html: post.html }} />
         <hr />
         <Bio />
       </article>
@@ -68,6 +75,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        tags
       }
     }
   }

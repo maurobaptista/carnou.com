@@ -1,37 +1,47 @@
 import React from "react"
 import PropTypes from "prop-types"
-
-// Utilities
 import kebabCase from "lodash/kebabCase"
-
-// Components
 import { Helmet } from "react-helmet"
 import { Link, graphql } from "gatsby"
+import Layout from "../components/layout"
+import SEO from "../components/seo"
+import Bio from "../components/bio"
+import Tag from "../components/tag"
 
-const TagsPage = ({
-  data: {
-    allMarkdownRemark: { group },
-    site: {
-      siteMetadata: { title },
-    },
-  },
-}) => (
-  <div>
-    <Helmet title={title} />
-    <div>
-      <h1>Tags</h1>
-      <ul>
-        {group.map(tag => (
-          <li key={tag.fieldValue}>
-            <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-              {tag.fieldValue} ({tag.totalCount})
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-)
+const TagsPage = ({location, data}) => {
+  const siteTitle = data.site.siteMetadata.title
+
+  return (
+    <Layout location={location} title={siteTitle}>
+      <SEO
+        title="All Tags"
+        description="All tags"
+      />
+      <article className='mb-6 border-b pb-4'>
+        <header className="mb-4">
+          <h1 className="text-gray-900 font-bold text-2xl text-blue-900">
+            Tags
+          </h1>
+        </header>
+
+        <ul className="mb-12">
+          {data.allMarkdownRemark.group.map(tag => {
+              return (
+                <li>
+                  <Tag tag={tag.fieldValue} />
+                  <span className="text-sm bg-blue-600 rounded-full text-white py-1 px-2">{tag.totalCount}</span>
+                </li>
+              )
+            }
+          )}
+        </ul>
+
+        <hr />
+        <Bio />
+      </article>
+    </Layout>
+  )
+}
 
 TagsPage.propTypes = {
   data: PropTypes.shape({

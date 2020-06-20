@@ -1,7 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types"
-
-// Components
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
@@ -28,8 +26,9 @@ const Tags = ({ data, pageContext, location}) => {
           </h1>
         </header>
         {edges.map(({ node }) => {
-          const slug = node.fields
+          const slug = node.fields.slug
           const data = node.frontmatter
+          console.log(slug);
 
           return (
             <Post slug={slug} title={data.title} date={data.date} tags={data.tags}>
