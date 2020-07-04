@@ -150,12 +150,12 @@ If you do not do that you can face the error: `No Network Security Config specif
 
 #### Setting the .env file
 
-Inside your flutter project folder, add a file calle `.env`, and add the data on it
+Inside your flutter project folder, add a file called `.env`, and add the same Pusher data your have in Laravel .env file:
 ```
-PUSHER_APP_ID=1030582
-PUSHER_APP_KEY=93657c8aed66baf495f7
-PUSHER_APP_SECRET=04b178b666ebea0f20b9
-PUSHER_APP_CLUSTER=us2
+PUSHER_APP_ID={replace with the app_id}
+PUSHER_APP_KEY={replace with the key}
+PUSHER_APP_SECRET={replace with the secret}
+PUSHER_APP_CLUSTER={replcae with the cluster you choose}
 ```
 
 Then add this file to your `pubspec.yaml` file.
