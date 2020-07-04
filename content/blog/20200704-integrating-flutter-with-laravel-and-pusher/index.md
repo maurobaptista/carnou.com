@@ -1,13 +1,11 @@
 ---
 title: Integrating Flutter with Laravel and Pusher
-description: "abc"
+description: "How to create an app that push data to it in real-time, using Laravel as the backend, Flutter as the frontend and Pusher as the websocket service"
 date: "2020-07-04T08:00:00.000Z"
 tags: ["flutter", "laravel", "pusher"]
 ---
 
-## Source Code
-
-([Wikipedia Link](https://en.wikipedia.org/wiki/Salted_duck_egg))
+**Source Code**: https://github.com/maurobaptista/flutter-laravel-pusher
 
 ## Expected Result
 
@@ -42,7 +40,6 @@ You must have an account at https://pusher.com/
 After you create your account, add a name (I'll use `flutter-laravel-app`), and choose you tech: `Android (java)` and `PHP`
 
 On you channel overview, click in `App Keys`. On you Laravel .env file, add the keys information.
-
 ```
 PUSHER_APP_ID={replace with the app_id}
 PUSHER_APP_KEY={replace with the key}
@@ -51,7 +48,6 @@ PUSHER_APP_CLUSTER={replcae with the cluster you choose}
 ```
 
 Also in the `.env` file, change the driver to broadcast:
-
 ```
 BROADCAST_DRIVER=pusher
 ```
@@ -63,13 +59,11 @@ Now click and `Debug Console`, this is the interface where we will see wich mess
 ### Creating the trigger
 
 For a matter to make it easy to trigger the event that will be broadcasted, We will set a command to do it.
-
 ```bash
 php artisan make:command SendBroadcast
 ```
 
 Inside the `app\Console\Commands\SendBroadcast` file, I will change the `$signature` and the `$desription` to:
- 
 ```php
 protected $signature = 'broadcast:send';
 
@@ -77,7 +71,6 @@ protected $description = 'Broadcast a message';
 ```
 
 Add the code to handle the event, we are going to create the `SendMessage` class in the next step.
-
 ```php
 public function handle()
 {
@@ -85,6 +78,7 @@ public function handle()
     event(new \App\Events\SendMessage($message ?: 'No Message :)'));
 }
 ```
+
 This way we can call in our command line: `php artisan broadcast:send`
 
 ### Creating the event
@@ -94,7 +88,6 @@ php artisan make:event SendMessage
 ```
 
 In the file `app/Events/SendMessage.php` we will make the class implement the `ShouldBroadcast`
-
 ```php
 ...
 
@@ -105,7 +98,6 @@ class SendMessage implements ShouldBroadcast
 ```
 
 Now we need to set the attribute to send the message:
-
 ```php
 /** @var string */
 public $message;
@@ -129,7 +121,6 @@ As we are setting the `$message` as public, Laravel will add the to the payload,
 ```
 
 As we are going to broadcast to a public channel, we can return just the class `Channel`.
-
 ```php
 public function broadcastOn()
 {
@@ -148,7 +139,6 @@ Now you can run the command `php artisan broadcast:send`, and if all is working 
 #### Adding Network data
 
 We will need to add a file in the folder `/android/app/src/main/res` called `network_security_config.xml` with the content:
-
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
@@ -161,7 +151,6 @@ If you do not do that you can face the error: `No Network Security Config specif
 #### Setting the .env file
 
 Inside your flutter project folder, add a file calle `.env`, and add the data on it
-
 ```
 PUSHER_APP_ID=1030582
 PUSHER_APP_KEY=93657c8aed66baf495f7
@@ -170,7 +159,6 @@ PUSHER_APP_CLUSTER=us2
 ```
 
 Then add this file to your `pubspec.yaml` file.
-
 ```yaml
 assets:
   - .env
@@ -179,7 +167,6 @@ assets:
 Do not forget to add the `.env` file to your `.gitignore`
 
 In the file `/lib/main.dart` add the DotEnv as a singleton. Below you can see the whole `main.dart` file, as we remove the boilerplater from it. The `MessageScreen` class will be created next.
-
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -207,7 +194,6 @@ class MyApp extends StatelessWidget {
 #### Setting the Pusher
 
 First create a new file `/lib/screens/message_screen.dart` and set it as a stateful widget. Note, that we are already importing the packages we are going to use, as `pusher` and `dotEnv`.
-
 ```dart
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -227,7 +213,6 @@ class _MessageScreenState extends State<MessageScreen> {
 ```
 
 Now lets set the Pusher. We are going to call it in the `initState` method, as we need to star
-
 ```dart
 class _MessageScreenState extends State<MessageScreen> {
   StreamController<String> _eventData = StreamController<String>();
@@ -318,7 +303,6 @@ channel.bind(eventName, (last) {
 ```
 
 In the end we must listen to the stream and handle the data. For now, lets just add it to the messages list and then see it in flutter console.
-
 ```dart
 eventStream.listen((data) async {
   messages.add(data);
@@ -382,7 +366,6 @@ First, let's store in the message variable on the message and not the whole payl
 Add the `import 'dart:convert';` at the beginning of the file.
 
 Then replace the listen callback to:
-
 ```dart
 eventStream.listen((data) async {
   Map<String, dynamic> message = jsonDecode(data);
@@ -398,7 +381,6 @@ Note that we are storing the message inside the `setState`, so our app can be re
 #### Changing the view
 
 Ok, now we can change our black app to show the messages we are receiving.
-
 ```dart
 @override
 Widget build(BuildContext context) {

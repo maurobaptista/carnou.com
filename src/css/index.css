@@ -13,3 +13,31 @@ body {
 .post p {
     @apply mb-6;
 }
+
+h2 {
+    @apply text-xl font-bold mb-4 mt-8;
+}
+
+h3 {
+    @apply text-lg font-bold mb-2 mt-4;
+}
+
+h4 {
+    @apply text-base font-bold mb-1 mt-2;
+}
+
+.gatsby-highlight {
+    @apply mb-4 mt-2;
+}
+
+ul {
+    @apply list-inside list-disc;
+}
+
+a {
+    @apply font-medium;
+}
+
+a:hover {
+    @apply text-blue-700;
+}
