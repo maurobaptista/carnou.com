@@ -41,3 +41,8 @@ a {
 a:hover {
     @apply text-blue-700;
 }
+
+.text-gradient {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

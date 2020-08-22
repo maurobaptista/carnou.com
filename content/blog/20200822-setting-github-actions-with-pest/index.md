@@ -7,6 +7,8 @@ tags: ["php", "laravel", "pest"]
 
 ## Expected Result
 
+This Github Action is used in https://apinotready.com
+
 ![Successful Github Action set](./expected_result.png)
 
 ### Whole Github Action

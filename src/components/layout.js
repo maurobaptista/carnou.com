@@ -11,8 +11,8 @@ const Layout = ({ location, title, children }) => {
 
   return (
     <div className={'max-w-6xl my-4 mx-4 lg:mx-auto ' + headerFontSize}>
-      <h1 className='text-4xl font-bold mb-6 text-blue-700 hover:text-blue-600'>
-        <Link to={`/`}>
+      <h1 className='text-4xl font-bold mb-6'>
+        <Link to={`/`} className='bg-gradient-to-r text-gradient from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800'>
           {title}
         </Link>
       </h1>
