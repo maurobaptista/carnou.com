@@ -11,8 +11,13 @@ tags: ["flutter", "laravel", "pusher"]
 
 ![Successful broadcasted message](./expected_result.gif)
 
+---
+
 ## Setting up
+
 This integration will use fresh installation of a Flutter project and, also, a fresh installation of a Laravel project, with some extra packages:
+
+---
 
 ### Flutter
 
@@ -24,6 +29,8 @@ Packages:
 - flutter_dotenv: ^2.1.0
 - pusher_websocket_flutter: ^0.2.0
 
+---
+
 ### Laravel
 
 ```bash
@@ -32,6 +39,8 @@ composer create-project --prefer-dist laravel/laravel laravel_app
 
 Packages:
 - pusher/pusher-php-server: ~4.0
+
+---
 
 ### Pusher
 
@@ -53,6 +62,8 @@ BROADCAST_DRIVER=pusher
 ```
 
 Now click and `Debug Console`, this is the interface where we will see wich message we are sending to flutter.
+
+---
 
 ## Sending the request to Pusher (Laravel Side)
 
@@ -80,6 +91,8 @@ public function handle()
 ```
 
 This way we can call in our command line: `php artisan broadcast:send`
+
+---
 
 ### Creating the event
 
@@ -128,11 +141,15 @@ public function broadcastOn()
 }
 ```
 
+---
+
 ### Test the broadcasting
 
 Now you can run the command `php artisan broadcast:send`, and if all is working as expected, you should see it reflecting in the `Debug Console` in the pusher page.
 
 ![Successful broadcasted message](./pusher-debug-console.png)
+
+---
 
 ### Retrieving the messages (Flutter)
 
@@ -356,6 +373,8 @@ After you run you app, you should see something like that in your `Debug Console
 Now run the `php artinan broadcast:send` and you should see the message in Flutter console.
  
 ![Channel Subscribed](./flutter-message.png)
+
+---
 
 ### Improving the App view
 

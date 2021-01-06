@@ -9,7 +9,11 @@ tags: ["php", "laravel", "pest"]
 
 This Github Action is used in https://apinotready.com
 
+---
+
 ![Successful Github Action set](./expected_result.png)
+
+---
 
 ### Whole Github Action
 
@@ -58,6 +62,8 @@ jobs:
         run: vendor/bin/pest --coverage --min=90
 ```
 
+---
+
 ### Default from Github
 
 The default action to Laravel from Github only comes with the `uses: actions/checkout@v2`, but, as we are going to use the coverage from Pest php, we will need to set xdebug, as well.
@@ -71,6 +77,8 @@ This is the reason we need to add:
     coverage: xdebug
 ```
 
+---
+
 ### Error with PHPUnit
 
 When using the default action from Github action, you will receive the following error:
@@ -80,6 +88,8 @@ option --coverage is ambiguous
 ```
 
 The issue here is the `--no-script` when running composer install. You must remove this argument when running it.
+
+---
 
 ### Setting minimun coverage
 
